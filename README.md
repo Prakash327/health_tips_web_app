@@ -27,11 +27,11 @@ to delete profile
 
 10: put route:-->>(https:localhost:7000/healthtips/:id) to update health tips
 
-11: get route:-->>(ttps:localhost:7000/healthtips)
+11: get route:-->>(https:localhost:7000/healthtips)
 to get health tips posted by logedin user
-12: get route:-->>(ttps:localhost:7000/healthtips/:id)
+12: get route:-->>(https:localhost:7000/healthtips/:id)
 get health tips by id
-13: get route:-->>(ttps:localhost:7000/healthtips/all)
+13: get route:-->>(https:localhost:7000/healthtips/all)
 get all health tips present in database
 
 
