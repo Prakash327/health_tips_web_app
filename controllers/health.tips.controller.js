@@ -9,12 +9,12 @@ async function createHealthTips(request, response) {
     if (!title || !content) {
       return response.status(400).json({ message: "all fields are mandatory" });
     }
-    const existingHealthTips = await healthTips.findOne({ title });
-    if (existingHealthTips) {
-      return response
-        .status(400)
-        .json({ message: "health_tips_already_exits" });
-    }
+    // const existingHealthTips = await healthTips.findOne({ title });
+    // if (existingHealthTips) {
+    //   return response
+    //     .status(400)
+    //     .json({ message: "health_tips_already_exits" });
+    // }
 
     let image = "";
     if (request.file) {

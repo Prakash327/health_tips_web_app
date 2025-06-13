@@ -5,11 +5,15 @@ const bcrypt = require("bcrypt")
 
 async function registerUser (request,response){
     const {email,password}= request.body;
+    if(!email|| !password){
+        return response.status(404).json({status:false,message:"please provide the fields correctly"})
+    }
     try {
         const userRecord = await admin.auth().createUser({
             email,
             password
         })
+        console.log(userRecord)
         response.status(201).json({message:"usercreated",userId:userRecord.uid})
     } catch (error) {
         console.error("Register error:", error);

@@ -1,4 +1,3 @@
-const { required, string } = require('joi');
 const mongoose = require('mongoose');
 const health_tips_Schema =  new mongoose.Schema({
     firebaseUid:{

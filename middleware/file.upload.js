@@ -11,7 +11,7 @@ function ensureUploadDir() {
 }
 
 const uploadDir = ensureUploadDir();
-uploadDir;
+ uploadDir;
 
 const storage = multer.diskStorage({
     destination: (req, file, cb)=>{
