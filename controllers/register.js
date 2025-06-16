@@ -1,4 +1,6 @@
 const admin = require("../config/firebase.js")
+const axios = require('axios');
+require('dotenv').config()
 
 async function getUser(request,response) {
     const {uid}= request.user;
@@ -42,25 +44,42 @@ async function registerUser(request,response) {
 
 async function loginUser(request, response) {
   try {
-    const { idToken } = request.body;
-
-    if (!idToken) {
-      return response.status(400).json({ message: "ID token is required" });
+    const { email, password } = request.body;
+    const API_KEY = process.env.api_key111; // <-- Replace with your Firebase project's Web API Key 
+    async function getFirebaseToken1() {
+      try {
+        const response = await axios.post(
+          `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${API_KEY}`,
+          {
+            email,
+            password,
+            returnSecureToken: true,
+          },
+          {
+            headers: { 'Content-Type': 'application/json' },
+          }
+        );
+        return response.data.idToken; // Return the ID token
+      } catch (error) {
+        console.error('Error getting token:', error.response?.data || error.message);
+        throw new Error('Invalid email or password'); 
+      }
     }
-    
 
-    // Verify the Firebase ID token
+    
+    const idToken = await getFirebaseToken1();
+
+    // Optionally, verify the ID token and get user details (if needed)
     const decodedToken = await admin.auth().verifyIdToken(idToken);
-    const uid = decodedToken.uid;
-    const userRecord = await admin.auth().getUser(uid);
+    const user = await admin.auth().getUser(decodedToken.uid);
 
     response.status(200).json({
       message: "Logged in successfully",
       user: {
-        uid: userRecord.uid,
-        email: userRecord.email,
+        uid: user.uid,
+        email: user.email,
       },
-      token: idToken, // Optional: return the ID token
+      token: idToken, 
     });
      
   } catch (error) {
