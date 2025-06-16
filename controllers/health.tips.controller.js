@@ -155,6 +155,7 @@ async function getHealthTips(request,response){
                 message:"unauthorized : no user found"
             })
         }
+        
         const result = await healthTips.find({firebaseUid})
         return response.status(200).json({
             status:"success",

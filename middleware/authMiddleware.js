@@ -10,11 +10,14 @@ const authMiddleware = async(request,response,next)=>{
     }
     try{
         const decodedToken = await admin.auth().verifyIdToken(token);
-        request.user = decodedToken;
+        request.user = {
+            uid:decodedToken.uid,
+            email:decodedToken.email
+        };
         next()
     }catch(error){
         return response.status(401).json({message:"Invalid Token"})
     }
 }
 
-module.exports = authMiddleware
+module.exports = authMiddleware;
