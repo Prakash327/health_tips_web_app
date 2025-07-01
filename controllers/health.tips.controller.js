@@ -157,6 +157,13 @@ async function getHealthTips(request,response){
         }
         
         const result = await healthTips.find({firebaseUid})
+        if(result.length === 0){
+          return response.status(404).json({
+                status: "success",
+                message:"No health tips found",
+                data:[]
+            });
+        }
         return response.status(200).json({
             status:"success",
             message:"health tips got successfully",
@@ -202,8 +209,17 @@ async function getAllHealthTips(request,response){
             message:"all health tips got successfully",
             data:result
         })
+        
     } catch (error) {
-        return response.status(500).json({error:error.message})
+        //eturn response.status(500).json({error:error.message})
+        console.error("Error fetching all health tips:", error); // Log for debugging
+        return response.status(500).json({
+            status: "error",
+            message: "Internal server error. Please try again later."
+        });
     }
 }
-module.exports = { createHealthTips,updateHealthTips,deleteHealthTips,getHealthTips,getHealthTipsById,getAllHealthTips };
+
+module.exports = { createHealthTips,updateHealthTips,deleteHealthTips,getHealthTips,getHealthTipsById,getAllHealthTips
+  
+ };

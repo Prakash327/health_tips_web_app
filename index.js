@@ -12,10 +12,14 @@ const profile = require('./routes/profile.routes.js')
 const picture = require('./routes/picture.routes.js')
 //the picture route was just to test the image upload is working properly or not
 const healthTips= require('./routes/health.tips.routes.js')
+const comment = require('./routes/comment.routes.js')
+const like  = require('./routes/like.routes.js')
 app.use('/user',register);
 app.use('/profile',profile)
 app.use('/picture',picture)
 app.use('/healthtips',healthTips)
+app.use('/comment',comment)
+app.use('/like',like)
 
 // app.use('/',register);
 
@@ -23,7 +27,7 @@ app.use('/healthtips',healthTips)
 
 const port = 7000;
 
-async function start() {[]
+async function start() {
     await connection
     app.listen(port,()=>{
         

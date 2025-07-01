@@ -3,7 +3,7 @@ const profileSchema = new mongoose.Schema({
     firebaseUid:{
         type: String,
         required: true,
-        unique: true,
+        // unique: true,
         index: true
     },
     name:{
